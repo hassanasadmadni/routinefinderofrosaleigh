@@ -1,0 +1,418 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Rosaleigh Cosmetics design system — matches the Shopify store theme.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-heading: var(--heading);
+  --color-highlight: var(--highlight);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-link: var(--link);
+  --color-sale: var(--sale);
+  --color-error: var(--error);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--highlight);
+  --color-btn: var(--btn);
+  --color-btn-foreground: var(--btn-foreground);
+  --color-btn-hover: var(--btn-hover);
+  --color-btn-hover-foreground: var(--btn-hover-foreground);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-honey: #d1a875;
+  --color-sky: #4f87b8;
+  --color-sky-light: #a9cdeb;
+  --color-navy: #172236;
+  --color-rust: #983c2f;
+  --color-ink: #231f20;
+  --color-bar: var(--bar);
+  --color-bar-foreground: var(--bar-foreground);
+  --color-bar-muted: var(--bar-muted);
+  --color-bar-line: var(--bar-line);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-primary: var(--btn);
+  --color-primary-foreground: var(--btn-foreground);
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--heading);
+  --color-accent: var(--surface);
+  --color-accent-foreground: var(--heading);
+  --color-popover: var(--background);
+  --color-popover-foreground: var(--foreground);
+  --color-muted: var(--surface);
+  --color-destructive: var(--error);
+  --color-destructive-foreground: #ffffff;
+  --shadow-soft: 0 12px 32px -14px color-mix(in oklab, #231f20 30%, transparent);
+  --shadow-card: 0 1px 2px 0 color-mix(in oklab, #231f20 6%, transparent);
+}
+
+:root {
+  --radius: 0.875rem;
+  --background: #ffffff;
+  --surface: #f7f1ee;
+  --heading: #231f20;
+  --highlight: #9a5a22;
+  --foreground: #4a4546;
+  --muted-foreground: #6e6869;
+  --link: #9a5a22;
+  --sale: #c1653b;
+  --error: #b4472c;
+  --success: #2f6b45;
+  --border: #e6e1de;
+  --btn: #231f20;
+  --btn-foreground: #ffffff;
+  --btn-hover: #f0c020;
+  --btn-hover-foreground: #231f20;
+  --accent-yellow: #f0c020;
+  --bar: #231f20;
+  --bar-foreground: #ffffff;
+  --bar-muted: #d9d3d0;
+  --bar-line: #3a3435;
+}
+
+.dark {
+  --background: #231f20;
+  --surface: #2e292a;
+  --heading: #ffffff;
+  --highlight: #f0c020;
+  --foreground: #d9d3d0;
+  --muted-foreground: #b5adaa;
+  --link: #f0c020;
+  --sale: #c1653b;
+  --error: #d97355;
+  --success: #6fae83;
+  --border: #3a3435;
+  --btn: #f0c020;
+  --btn-foreground: #231f20;
+  --btn-hover: #ffffff;
+  --btn-hover-foreground: #231f20;
+  --accent-yellow: #f0c020;
+  --bar: #000000;
+  --bar-foreground: #ffffff;
+  --bar-muted: #d9d3d0;
+  --bar-line: #3a3435;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--heading);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+}
+
+@utility rl-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--highlight);
+}
+
+/* Large rounded section panel, as used on rosaleigh.co.uk */
+@utility rl-panel {
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+/* Small white pill label, e.g. "01 · Morning" */
+@utility rl-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--heading);
+  box-shadow: 0 1px 2px rgb(35 31 32 / 0.06);
+}
+
+@utility rl-card {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+@keyframes rl-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility rl-enter {
+  animation: rl-fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Motion ─────────────────────────────────────────────── */
+
+/* Scroll reveal: content slides up as it enters the viewport (only when JS runs). */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .rl-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--rl-delay, 0ms);
+  }
+  .rl-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rl-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@utility rl-float {
+  animation: rl-float 6s ease-in-out infinite;
+}
+
+@keyframes rl-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+/* Moving highlight across progress bars */
+@utility rl-shimmer {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+    animation: rl-shimmer 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes rl-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@utility rl-pop {
+  animation: rl-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes rl-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+@utility rl-glow {
+  animation: rl-glow 7s ease-in-out infinite;
+}
+
+/* ── Scan visual & charts ───────────────────────────────── */
+
+/* Line-art draws itself in (use pathLength="1" on the path) */
+@keyframes rl-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.rl-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: rl-draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: var(--rl-delay, 0ms);
+}
+
+@keyframes rl-kenburns {
+  from {
+    transform: scale(1.02) translate(0, 0);
+  }
+  to {
+    transform: scale(1.1) translate(-1.5%, -1%);
+  }
+}
+
+/* Scan line sweeping down the face */
+@keyframes rl-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--rl-scan-distance, 320px));
+    opacity: 0;
+  }
+}
+.rl-scan {
+  animation: rl-scan 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Landmark points pulsing */
+@keyframes rl-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0.35;
+  }
+}
+.rl-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rl-dot 2.4s ease-in-out infinite;
+  animation-delay: var(--rl-delay, 0ms);
+}
+
+/* SVG groups popping in */
+@keyframes rl-pop-in {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.rl-pop-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: rl-pop-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: var(--rl-delay, 0ms);
+}
+
+/* Fade in (for connector lines etc.) */
+@keyframes rl-fade {
+  to {
+    opacity: 1;
+  }
+}
+.rl-fade {
+  opacity: 0;
+  animation: rl-fade 0.8s ease forwards;
+  animation-delay: var(--rl-delay, 0ms);
+}
+
+/* Progress ring stroke animates via transition */
+.rl-ring {
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rl-delay, 0ms);
+}
+
+/* Bars grow up */
+.rl-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rl-delay, 0ms);
+}
+.rl-bar.is-on {
+  transform: scaleY(1);
+}
+
+/* Timeline line draws across as it is revealed */
+.rl-line {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.is-visible .rl-line,
+.rl-line.is-on {
+  transform: scaleX(1);
+}
+.rl-line-v {
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.is-visible .rl-line-v {
+  transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
