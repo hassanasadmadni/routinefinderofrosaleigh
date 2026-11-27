@@ -121,46 +121,33 @@ export function ScanHero({ onChoose }: Props) {
                 <p className="mt-1.5 text-[13px] leading-snug text-white/65">
                   Opens the skin scan on your phone. No app to download.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => onChoose("photo")}
-                  className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-white underline decoration-white/30 underline-offset-[5px] hover:decoration-white"
-                >
-                  Or scan on this computer <ArrowRight className="h-3.5 w-3.5" />
-                </button>
               </div>
-            </motion.div>
-
-            {/* Mobile: button */}
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.05, ease: EASE }}
-              className="mt-8 md:hidden"
-            >
-              <button
-                type="button"
-                onClick={() => onChoose("photo")}
-                className="group flex w-full items-center justify-center gap-2.5 rounded-full bg-accent-yellow py-4 text-[15px] font-semibold text-ink"
-              >
-                <Camera className="h-4 w-4" /> Start my skin scan
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.3 }}
-              className="mt-6"
+              className="mt-8 md:mt-6"
             >
+              <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => onChoose("photo")}
+                className="group inline-flex items-center gap-2 rounded-full bg-accent-yellow px-5 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-white"
+              >
+                <ScanFace className="h-4 w-4" /> Scan your face
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              </button>
               <button
                 type="button"
                 onClick={() => onChoose("quiz")}
-                className="inline-flex items-center gap-2 text-[13px] font-semibold text-white/75 hover:text-white"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-ink"
               >
-                <ClipboardList className="h-4 w-4" /> Prefer questions? Take the 2-minute quiz
+                <ClipboardList className="h-4 w-4" /> Take the quiz
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </button>
+              </div>
               <dl className="mt-7 grid max-w-md grid-cols-3 divide-x divide-white/12 border-t border-white/12 pt-5">
                 {[
                   ["478", "points mapped on your face"],
@@ -300,7 +287,7 @@ function PhoneDemo() {
 const STEPS = [
   { icon: QrCode, title: "Scan the QR code", body: "Point your phone camera at the code. The scan opens in your browser." },
   { icon: Camera, title: "Take a selfie", body: "Face the camera in natural light, or upload a recent photo." },
-  { icon: ScanFace, title: "We read your skin", body: "478 points mapped and four readings taken, all on your phone." },
+  { icon: ScanFace, title: "System reads your skin", body: "478 points mapped and four readings taken, all on your phone." },
   { icon: Sparkles, title: "Get your routine", body: "Confirm three details and get your AM/PM routine and 30-day plan." },
 ];
 
