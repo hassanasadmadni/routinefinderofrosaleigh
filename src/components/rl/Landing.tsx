@@ -8,8 +8,8 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
-import { ArrowRight, ArrowUpRight, Camera, ChevronDown, ChevronLeft, ChevronRight, Clock, Moon, Sun } from "lucide-react";
-import { BRAND_IMAGES, PRODUCTS, type ProductId } from "@/data/catalogue";
+import { ArrowUpRight, ClipboardList, ScanFace, ChevronDown, ChevronLeft, ChevronRight, Clock, Moon, Sun } from "lucide-react";
+import { PRODUCTS, type ProductId } from "@/data/catalogue";
 import { PRODUCT_GUIDE } from "@/data/routine-guide";
 import { analyzeSkin } from "@/lib/analysis";
 import { routineSteps } from "@/lib/plan";
@@ -65,7 +65,7 @@ export function Landing({ onChoose }: Props) {
       <Ingredients />
       <Science />
       <FirstMonth />
-      <StartOptions onChoose={onChoose} />
+      <FloatingStart onChoose={onChoose} />
       <Faq />
     </div>
   );
@@ -805,66 +805,34 @@ function FirstMonth() {
   );
 }
 
-/* ── Start options ───────────────────────────────────────────────────────── */
+/* ── Floating start buttons (bottom right) ───────────────────────────────── */
 
-function StartOptions({ onChoose }: Props) {
-  const cards = [
-    {
-      path: "photo" as const,
-      file: BRAND_IMAGES.warm,
-      tone: "#D9B48F",
-      eyebrow: "Recommended · Your photo stays on your device",
-      title: "Scan your skin",
-      body: "Take a selfie or upload a photo. We map your face, take four readings and you confirm three details.",
-      cta: "Start the scan",
-    },
-    {
-      path: "quiz" as const,
-      file: BRAND_IMAGES.sky,
-      tone: "#7FA9D6",
-      eyebrow: "No photo · 2 minutes",
-      title: "Take the skin quiz",
-      body: "Six questions about your skin, your habits and what you'd like to improve.",
-      cta: "Start the quiz",
-    },
+function FloatingStart({ onChoose }: Props) {
+  const items = [
+    { path: "quiz" as const, label: "Take the skin quiz", Icon: ClipboardList, className: "bg-white text-ink ring-1 ring-border" },
+    { path: "photo" as const, label: "Scan your skin", Icon: ScanFace, className: "bg-ink text-accent-yellow" },
   ];
   return (
-    <section className="mx-auto mt-24 max-w-[1300px] px-4 md:mt-32 md:px-7">
-      <Reveal className="max-w-2xl">
-        <p className="rl-eyebrow">Ready when you are</p>
-        <h2 className="mt-3 text-[2.6rem] leading-[1.02] md:text-6xl">Two ways to begin.</h2>
-      </Reveal>
-      <div className="mt-10 grid gap-4 md:grid-cols-2 md:gap-5">
-        {cards.map((c, n) => (
-          <Reveal key={c.path} delay={n * 120}>
-            <button
-              type="button"
-              onClick={() => onChoose(c.path)}
-              className="group relative isolate block aspect-[4/5] w-full overflow-hidden rounded-[2rem] text-left sm:aspect-[5/4] md:aspect-[4/3.4]"
-            >
-              <StorePhoto
-                file={c.file}
-                alt=""
-                tone={c.tone}
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="absolute inset-0 -z-10"
-                imgClassName="duration-[1200ms] group-hover:scale-[1.05]"
-              />
-              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-              <div className="flex h-full flex-col justify-end p-7 text-white md:p-10">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-yellow">{c.eyebrow}</p>
-                <h3 className="mt-2 text-[2.6rem] leading-none !text-white md:text-5xl">{c.title}</h3>
-                <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">{c.body}</p>
-                <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-white py-3 pl-6 pr-4 text-sm font-semibold text-ink transition-colors duration-300 group-hover:bg-accent-yellow">
-                  {c.cta}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </button>
-          </Reveal>
-        ))}
-      </div>
-    </section>
+    <div className="fixed bottom-[102px] right-[32px] z-40 flex flex-col items-end gap-3">
+      {items.map(({ path, label, Icon, className }) => (
+        <button
+          key={path}
+          type="button"
+          aria-label={label}
+          onClick={() => onChoose(path)}
+          className="group relative flex items-center"
+        >
+          <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full bg-ink px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+            {label}
+          </span>
+          <span
+            className={`flex h-[52px] w-[52px] items-center justify-center rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.25)] transition-transform duration-200 group-hover:scale-105 group-active:scale-95 ${className}`}
+          >
+            <Icon className="h-6 w-6" />
+          </span>
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -873,7 +841,7 @@ function StartOptions({ onChoose }: Props) {
 const FAQ = [
   {
     q: "Which products are in the routine?",
-    a: "Five Rosaleigh products: Turmeric Face Wash, Radiance+ Sublingual Strips and Radiance+ SPF50 Day Cream in the morning; Cleansing Tallow Balm, Turmeric Face Wash and Radiance+ Night Cream in the evening.",
+    a: "Five Rosaleigh products: Turmeric Face Wash, Radiance+ ODF (Oral Dissolving Films) and Radiance+ SPF50 Day Cream in the morning; Cleansing Tallow Balm, Turmeric Face Wash and Radiance+ Night Cream in the evening.",
   },
   {
     q: "What do my answers change?",
@@ -892,7 +860,7 @@ const FAQ = [
     a: "Your photo is processed on your own device and is never uploaded or stored by us. Close the page and it's gone.",
   },
   {
-    q: "Are the Radiance+ Sublingual Strips suitable for everyone?",
+    q: "Are the Radiance+ ODF (Oral Dissolving Films) suitable for everyone?",
     a: "They are a food supplement for adults. Take no more than one strip a day. If you are pregnant, breastfeeding or taking medication, speak to your doctor before use.",
   },
   {
