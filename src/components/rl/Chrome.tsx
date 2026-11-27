@@ -57,7 +57,7 @@ const URLS = {
   home: `${SITE}/`,
   shop: `${SITE}/collections/all`,
   story: `${SITE}/pages/ourstory`,
-  routineFinder: "https://routineby-rosaleigh.vercel.app/",
+  routineFinder: "https://rosaleigh-routine-finder.vercel.app/",
   contact: `${SITE}/pages/contact`,
   // unconfirmed
   account: `${SITE}/account`,
