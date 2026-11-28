@@ -114,13 +114,14 @@ export function ScanHero({ onChoose }: Props) {
                   />
                 )}
               </div>
-              <div className="max-w-[240px]">
+              <div className="max-w-[330px]">
                 <p className="flex items-center gap-2 text-sm font-semibold text-white">
                   <Smartphone className="h-4 w-4 text-accent-yellow" /> Scan with your phone camera
                 </p>
                 <p className="mt-1.5 text-[13px] leading-snug text-white/65">
                   Opens the skin scan on your phone. No app to download.
                 </p>
+                <StartButtons onChoose={onChoose} className="mt-3" />
               </div>
             </motion.div>
 
@@ -130,24 +131,7 @@ export function ScanHero({ onChoose }: Props) {
               transition={{ duration: 1, delay: 1.3 }}
               className="mt-8 md:mt-6"
             >
-              <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => onChoose("photo")}
-                className="group inline-flex items-center gap-2 rounded-full bg-accent-yellow px-5 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-white"
-              >
-                <ScanFace className="h-4 w-4" /> Scan your face
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </button>
-              <button
-                type="button"
-                onClick={() => onChoose("quiz")}
-                className="group inline-flex items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-ink"
-              >
-                <ClipboardList className="h-4 w-4" /> Take the quiz
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </button>
-              </div>
+              <StartButtons onChoose={onChoose} className="md:hidden" />
               <dl className="mt-7 grid max-w-md grid-cols-3 divide-x divide-white/12 border-t border-white/12 pt-5">
                 {[
                   ["478", "points mapped on your face"],
@@ -172,6 +156,29 @@ export function ScanHero({ onChoose }: Props) {
 }
 
 /* ── Phone mockup with an example scan, tilting in 3D with the pointer ──── */
+
+function StartButtons({ onChoose, className = "" }: { onChoose: (path: "photo" | "quiz") => void; className?: string }) {
+  return (
+    <div className={`flex flex-wrap items-center gap-2.5 ${className}`}>
+      <button
+        type="button"
+        onClick={() => onChoose("photo")}
+        className="group inline-flex items-center gap-2 rounded-full bg-accent-yellow px-4 py-2.5 text-[13px] font-semibold text-ink transition-colors hover:bg-white"
+      >
+        <ScanFace className="h-4 w-4" /> Scan your face
+        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+      </button>
+      <button
+        type="button"
+        onClick={() => onChoose("quiz")}
+        className="group inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2.5 text-[13px] font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-ink"
+      >
+        <ClipboardList className="h-4 w-4" /> Take the quiz
+        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+      </button>
+    </div>
+  );
+}
 
 const DEMO_CHIPS = [
   { label: "T-zone", value: "Shine · Moderate", x: "-18%", y: "18%", side: "left" as const },
